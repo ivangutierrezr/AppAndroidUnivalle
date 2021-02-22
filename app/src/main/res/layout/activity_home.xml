@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context=".Home">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="25dp" />
+
+    <Button
+        android:id="@+id/btnVolver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="logout"
+        android:text="Log out"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="160dp"
+        tools:layout_editor_absoluteY="480dp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
+
+    <TextView
+        android:id="@+id/etData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="24sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="150dp" />
+
+    <Button
+        android:id="@+id/btnContar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="gotolists"
+        android:text="Go to my lists"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="160dp"
+        tools:layout_editor_absoluteY="480dp" />
+
+</LinearLayout>
