@@ -2,7 +2,15 @@ package com.example.tallerandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,16 +19,26 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.tallerandroid.R;
+import com.example.tallerandroid.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import org.jetbrains.annotations.NotNull;
+
+public class MainActivity<connectivityManager> extends AppCompatActivity implements View.OnClickListener {
 
     Button btnIniciarSesion;
     EditText etUserName, etPasswd;
     Switch swAuth;
 
+    ActivityMainBinding binding;
+    public static final String BroadcastStringForAction="checkinternet";
+
+    private IntentFilter mIntentFilter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding= ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         setContentView(R.layout.activity_main);
         // Toast.makeText(this,"OnCreate", Toast.LENGTH_LONG).show();
 
@@ -31,10 +49,110 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         swAuth = findViewById(R.id.swAuth);
 
         btnIniciarSesion.setOnClickListener(this);
+
+        mIntentFilter= new IntentFilter();
+        mIntentFilter.addAction(BroadcastStringForAction);
+        Intent serviceIntent = new Intent(this,MyService.class );
+        startService(serviceIntent);
+
+        binding.appNoconnected.setVisibility(View.GONE);
+        if(isOnline(getApplicationContext()))
+        {
+            Set_Visibility_ON();
+        }
+        else
+        {
+            Set_Visibility_OFF();
+
+        }
+
+
+
     }
 
+    public BroadcastReceiver MyReceiver= new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent.getAction().equals(BroadcastStringForAction))
+            {
+                if(intent.getStringExtra("online_status").equals("true"))
+                {
+                    Set_Visibility_ON();
+                }
+                else
+                {
+                    Set_Visibility_OFF();
+                }
+            }
+        }
+    };
+
+    public boolean isOnline (Context c) {
+        ConnectivityManager cm = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo ni = cm.getActiveNetworkInfo();
+
+        if (ni != null && ni.isConnectedOrConnecting())
+            return true;
+        else
+            return false;
+    }
+
+    public void Set_Visibility_ON()
+    {
+        binding.appNoconnected.setVisibility(View.GONE);
+        binding.btnSubmit.setVisibility(View.VISIBLE);
+        binding.parent.setBackgroundColor(Color.WHITE);
+    }
+
+    public void Set_Visibility_OFF()
+    {
+        binding.appNoconnected.setVisibility(View.VISIBLE);
+        binding.btnSubmit.setVisibility(View.GONE);
+        binding.parent.setBackgroundColor(Color.RED);
+    }
+
+    protected void onRestart()
+    {
+        super.onRestart();
+        registerReceiver(MyReceiver, mIntentFilter);
+
+    }
+
+    protected void onPause(){
+        super.onPause();
+        unregisterReceiver(MyReceiver);
+    }
+
+    protected void onResume(){
+        super.onResume();
+        registerReceiver(MyReceiver,mIntentFilter);
+    }
+
+
+   /* private boolean haveNetwork(){
+        boolean have_WIFI = false;
+        boolean have_MobilData = false;
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        Network[] networkInfos= connectivityManager.getAllNetworks();
+
+        for( Network info:networkInfos){
+            if (info.getByName ().equalsIgnoreCase("WIFI"))
+                have_WIFI=true;
+
+
+        }
+
+    }*/
+   @NotNull
+  
     @Override
     public void onClick(View v) {
+
+      /*  if(!isConnected(this)){
+            showCustomDialog();
+        }
+*/
         switch (v.getId()) {
             case R.id.btnIniciarSesion:
                 if (etUserName.getText().toString().matches("") || etPasswd.getText().toString().matches("")) {
@@ -54,6 +172,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+
+  /*  private boolean isConnected(MainActivity mainActivity) {
+
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) mainActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+    }
+*/
 
     @Override
     protected void onStart() {
