@@ -1,13 +1,18 @@
 package com.example.tallerandroid;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,5 +65,36 @@ public class MyLists extends AppCompatActivity {
         irHome.putExtras(data);
         irHome.addFlags(irHome.FLAG_ACTIVITY_CLEAR_TOP | irHome.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(irHome);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater Inflater = getMenuInflater();
+        Inflater.inflate(R.menu.menu_lists, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case  R.id.menuInicio:
+                //Toast.makeText(this, "Hola menu Home", Toast.LENGTH_LONG).show();
+                Intent ir = new Intent(this, MainActivity.class);
+                ir.addFlags(ir.FLAG_ACTIVITY_CLEAR_TOP | ir.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(ir);
+                return true;
+            case  R.id.menuHome:
+                //Toast.makeText(this, "Hola menu Home", Toast.LENGTH_LONG).show();
+                Intent i = new Intent(this, Home.class);
+                Bundle data = new Bundle();
+                data.putString("userName", username);
+                data.putString("passwd", password);
+                i.putExtras(data);
+                i.addFlags(i.FLAG_ACTIVITY_CLEAR_TOP | i.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

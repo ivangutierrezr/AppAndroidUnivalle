@@ -1,5 +1,6 @@
 package com.example.tallerandroid;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityManager;
@@ -12,11 +13,15 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
+
 
 import com.example.tallerandroid.R;
 import com.example.tallerandroid.databinding.ActivityMainBinding;
@@ -24,6 +29,7 @@ import com.example.tallerandroid.databinding.ActivityMainBinding;
 import org.jetbrains.annotations.NotNull;
 
 public class MainActivity<connectivityManager> extends AppCompatActivity implements View.OnClickListener {
+
 
     Button btnIniciarSesion;
     EditText etUserName, etPasswd;
@@ -182,6 +188,36 @@ public class MainActivity<connectivityManager> extends AppCompatActivity impleme
 
     }
 */
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater Inflater = getMenuInflater();
+        Inflater.inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case  R.id.menuInicio:
+                //Toast.makeText(this, "Hola menu Home", Toast.LENGTH_LONG).show();
+                Intent ir2 = new Intent(this, MainActivity.class);
+                ir2.addFlags(ir2.FLAG_ACTIVITY_CLEAR_TOP | ir2.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(ir2);
+            case  R.id.menuHome:
+                //Toast.makeText(this, "Hola menu Home", Toast.LENGTH_LONG).show();
+                Intent ir = new Intent(this, Home.class);
+                ir.addFlags(ir.FLAG_ACTIVITY_CLEAR_TOP | ir.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(ir);
+            case  R.id.menuLists:
+                //Toast.makeText(this, "Hola menu Home", Toast.LENGTH_LONG).show();
+                Intent i = new Intent(this, MyLists.class);
+                i.addFlags(i.FLAG_ACTIVITY_CLEAR_TOP | i.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     protected void onStart() {
