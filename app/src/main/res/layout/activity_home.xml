@@ -12,6 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="25dp" />
 
+    <fragment
+        android:id="@+id/fragment"
+        android:name="com.example.tallerandroid.BlankFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="160dp"
+        tools:layout_editor_absoluteY="480dp" />
+
     <Button
         android:id="@+id/btnVolver"
         android:layout_width="wrap_content"

@@ -77,11 +77,22 @@ public class MyLists extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case  R.id.menuHome:
+            case  R.id.menuInicio:
                 //Toast.makeText(this, "Hola menu Home", Toast.LENGTH_LONG).show();
-                Intent ir = new Intent(this, Home.class);
+                Intent ir = new Intent(this, MainActivity.class);
                 ir.addFlags(ir.FLAG_ACTIVITY_CLEAR_TOP | ir.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(ir);
+                return true;
+            case  R.id.menuHome:
+                //Toast.makeText(this, "Hola menu Home", Toast.LENGTH_LONG).show();
+                Intent i = new Intent(this, Home.class);
+                Bundle data = new Bundle();
+                data.putString("userName", username);
+                data.putString("passwd", password);
+                i.putExtras(data);
+                i.addFlags(i.FLAG_ACTIVITY_CLEAR_TOP | i.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

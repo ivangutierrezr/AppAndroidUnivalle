@@ -60,14 +60,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater Inflater = getMenuInflater();
-        Inflater.inflate(R.menu.menu_home, menu);
-        Inflater.inflate(R.menu.menu_lists, menu);
+        Inflater.inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
+            case  R.id.menuInicio:
+                //Toast.makeText(this, "Hola menu Home", Toast.LENGTH_LONG).show();
+                Intent ir2 = new Intent(this, MainActivity.class);
+                ir2.addFlags(ir2.FLAG_ACTIVITY_CLEAR_TOP | ir2.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(ir2);
             case  R.id.menuHome:
                 //Toast.makeText(this, "Hola menu Home", Toast.LENGTH_LONG).show();
                 Intent ir = new Intent(this, Home.class);
