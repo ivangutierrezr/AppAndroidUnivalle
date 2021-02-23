@@ -1,16 +1,18 @@
 package com.example.tallerandroid;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
-
-import com.example.tallerandroid.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -52,6 +54,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             default:
                 break;
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater Inflater = getMenuInflater();
+        Inflater.inflate(R.menu.menu_home, menu);
+        Inflater.inflate(R.menu.menu_lists, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case  R.id.menuHome:
+                //Toast.makeText(this, "Hola menu Home", Toast.LENGTH_LONG).show();
+                Intent ir = new Intent(this, Home.class);
+                ir.addFlags(ir.FLAG_ACTIVITY_CLEAR_TOP | ir.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(ir);
+            case  R.id.menuLists:
+                //Toast.makeText(this, "Hola menu Home", Toast.LENGTH_LONG).show();
+                Intent i = new Intent(this, MyLists.class);
+                i.addFlags(i.FLAG_ACTIVITY_CLEAR_TOP | i.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
