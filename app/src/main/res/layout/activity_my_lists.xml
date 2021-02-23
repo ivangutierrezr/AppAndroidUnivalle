@@ -12,28 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="25dp" />
 
-    <Button
-        android:id="@+id/btnVolver"
+    <fragment
+        android:id="@+id/fragment"
+        android:name="com.example.tallerandroid.BlankFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="logout"
-        android:text="Log out"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="160dp"
         tools:layout_editor_absoluteY="480dp" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="25dp" />
-
-    <Button
-        android:id="@+id/btnBackToHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="gobacktohome"
-        android:text="Go back"
-        tools:layout_editor_absoluteX="159dp"
-        tools:layout_editor_absoluteY="16dp" />
 
     <Space
         android:layout_width="match_parent"

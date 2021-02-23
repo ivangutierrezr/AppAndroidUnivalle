@@ -8,6 +8,19 @@
     android:gravity="center"
     tools:context=".MainActivity">
 
+    <fragment
+        android:id="@+id/fragment"
+        android:name="com.example.tallerandroid.BlankFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="160dp"
+        tools:layout_editor_absoluteY="480dp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="26dp" />
+
     <EditText
         android:id="@+id/etUserName"
         android:layout_width="wrap_content"
@@ -38,7 +51,7 @@
         android:id="@+id/btnIniciarSesion"
         android:layout_width="218dp"
         android:layout_height="wrap_content"
-        android:text="Log in" />
+        android:text="Sign in" />
 
     <Space
         android:layout_width="match_parent"
@@ -52,5 +65,30 @@
         android:textAlignment="center"
         android:textColor="#F44336"
         android:textStyle="bold" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="26dp" />
+
+<!--    <Button-->
+<!--        android:id="@+id/logWithGoogle"-->
+<!--        android:layout_width="218dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="#FFFFFF"-->
+<!--        android:drawableRight="@drawable/google"-->
+<!--        android:text="Log in with" />-->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OR"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
