@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:id="@+id/parent">
 
     <fragment
         android:id="@+id/fragment"
@@ -45,7 +46,8 @@
         android:id="@+id/swAuth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="I'm human" />
+        android:text="I'm human"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <Button
         android:id="@+id/btnIniciarSesion"
@@ -70,13 +72,6 @@
         android:layout_width="match_parent"
         android:layout_height="26dp" />
 
-<!--    <Button-->
-<!--        android:id="@+id/logWithGoogle"-->
-<!--        android:layout_width="218dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="#FFFFFF"-->
-<!--        android:drawableRight="@drawable/google"-->
-<!--        android:text="Log in with" />-->
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
@@ -87,7 +82,7 @@
         android:textStyle="bold" />
 
     <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
+        android:id="@+id/signInGoogle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

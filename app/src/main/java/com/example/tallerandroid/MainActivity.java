@@ -1,8 +1,14 @@
 package com.example.tallerandroid;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +28,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
@@ -30,10 +37,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private static final int RC_SIGN_IN = 16;
+    private static final int RC_SIGN_IN = 1;
     String TAG;
     Button btnIniciarSesion;
+    SignInButton signInGoogle;
     EditText etUserName, etPasswd;
     Switch swAuth;
     TextView errorText;
@@ -45,6 +52,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     RequestQueue requestQueue;
     private String url = "https://run.mocky.io/v3/1aaf3907-9707-4ddf-94d5-dc1d24afb383";
 
+    MyService mService;
+    boolean mBound = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +62,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Toast.makeText(this,"OnCreate", Toast.LENGTH_LONG).show();
 
         btnIniciarSesion = findViewById(R.id.btnIniciarSesion);
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
+        signInGoogle = findViewById(R.id.signInGoogle);
+        signInGoogle.setSize(SignInButton.SIZE_STANDARD);
 
         etUserName = findViewById(R.id.etUserName);
         etPasswd = findViewById(R.id.etPasswd);
@@ -60,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         errorText = findViewById(R.id.errorText);
 
         btnIniciarSesion.setOnClickListener(this);
+        signInGoogle.setOnClickListener(this);
 
         requestQueue = Volley.newRequestQueue(this);
 
@@ -68,11 +80,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
     }
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+        System.out.println(signInIntent);
+    }
+
+    public void checkInternetConnection(){
+        Intent ir = new Intent(this, MyService.class);
+        startService(ir);
     }
 
     @Override
@@ -91,33 +110,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-
-            // Signed in successfully, show authenticated UI.
             updateUI(account);
         } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
             updateUI(null);
         }
     }
-
+  
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.sign_in_button:
+            case R.id.signInGoogle:
                 signIn();
                 break;
-            // ...
             case R.id.btnIniciarSesion:
                 String userName = etUserName.getText().toString();
                 String passwrd = etPasswd.getText().toString();
                 if (userName.matches("") || passwrd.matches("")) {
                     errorText.setText("Username and password are required");
-//                    Toast.makeText(this,"Username and password are required", Toast.LENGTH_LONG).show();
                 } else if (swAuth.isChecked() != true) {
                     errorText.setText("You must check that you are human");
-//                    Toast.makeText(this,"You must check that you are human", Toast.LENGTH_LONG).show();
                 } else {
                     // Request a string response from the provided URL.
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -156,18 +168,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         accessAllowed = false;
                                         errorText.setText("Username and password combination is wrong!");
                                     }
-//                                    for (String llave : usersArray.keySet()) {//foreach clásico
-//                                        System.out.println(usersArray.get(llave));
-//                                    }
-//                                    for (int i = 0; i < users.size(); i++) {
-//                                        JSONObject object =(JSONObject) usersArray.get(i);
-//                                        String clave = object.get("usernamer").toString();
-//                                        String title = object.get("passwd").toString();
-//                                        System.err.println("points:"+clave);
-//                                        System.err.println("title:"+title);
-//
-//                                    }
-
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -177,30 +177,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 errorText.setText("Login error!");
                             });
 
-                    requestQueue.add(jsonObjectRequest); ;
-                    // Access the RequestQueue through your singleton class.
-//                    if (accessAllowed) {
-//                        Intent ir = new Intent(this,Home.class);
-//                        Bundle data = new Bundle();
-//                        data.putString("userName", etUserName.getText().toString());
-//                        data.putString("passwd", etPasswd.getText().toString());
-//                        ir.putExtras(data);
-//                        ir.addFlags(ir.FLAG_ACTIVITY_CLEAR_TOP | ir.FLAG_ACTIVITY_CLEAR_TASK);
-//                        startActivity(ir);
-//                    }
-
+                    requestQueue.add(jsonObjectRequest);
                 }
-//            case R.id.swAuth:
-//                if (swAuth.isChecked() == true && errorText.getText().toString().matches("You must check that you are human")) {
-//                    errorText.setText("");
-//                }
             default:
                 break;
         }
     }
 
     public void logIn() {
-        Intent ir = new Intent(this,Home.class);
+        Intent ir = new Intent(this, Home.class);
         Bundle data = new Bundle();
         data.putString("userName", etUserName.getText().toString());
         data.putString("passwd", etPasswd.getText().toString());
@@ -244,7 +229,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         updateUI(account);
-        //Toast.makeText(this,"OnStart", Toast.LENGTH_LONG).show();
+        checkInternetConnection();
     }
 
     private void updateUI(GoogleSignInAccount account) {
@@ -266,4 +251,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onDestroy();
         //Toast.makeText(this,"OnDestroy", Toast.LENGTH_LONG).show();
     }
+
 }
