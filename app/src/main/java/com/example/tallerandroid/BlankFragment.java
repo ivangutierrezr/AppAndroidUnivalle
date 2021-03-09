@@ -1,14 +1,13 @@
 package com.example.tallerandroid;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,7 +65,7 @@ public class BlankFragment extends Fragment {
         btnFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "Hola fragmento" , Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Solución Taller Android 2" , Toast.LENGTH_LONG).show();
             }
         });
         return v;

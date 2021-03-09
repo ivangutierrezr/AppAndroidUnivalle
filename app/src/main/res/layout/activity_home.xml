@@ -15,21 +15,21 @@
     <fragment
         android:id="@+id/fragment"
         android:name="com.example.tallerandroid.BlankFragment"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="160dp"
         tools:layout_editor_absoluteY="480dp" />
 
-    <Button
-        android:id="@+id/btnVolver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="logout"
-        android:text="Log out"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="160dp"
-        tools:layout_editor_absoluteY="480dp" />
+<!--    <Button-->
+<!--        android:id="@+id/btnVolver"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:onClick="logout"-->
+<!--        android:text="Log out"-->
+<!--        tools:ignore="MissingConstraints"-->
+<!--        tools:layout_editor_absoluteX="160dp"-->
+<!--        tools:layout_editor_absoluteY="480dp" />-->
 
     <Space
         android:layout_width="match_parent"
@@ -46,6 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp" />
 
+<<<<<<< HEAD
     <Button
         android:id="@+id/btnContar"
         android:layout_width="wrap_content"
@@ -63,4 +64,6 @@
         android:text="Servicio"
         android:onClick="iniciar_Servicio"/>
 
+=======
+>>>>>>> 382cae0f6a570d04bc521b4506bee86a441ff7ef
 </LinearLayout>

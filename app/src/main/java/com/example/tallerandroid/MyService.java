@@ -1,5 +1,6 @@
 package com.example.tallerandroid;
 
+<<<<<<< HEAD
 import android.app.Service;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -7,6 +8,22 @@ import android.os.IBinder;
 import android.widget.Toast;
 
 public class MyService extends Service {
+=======
+import android.app.ActivityManager;
+import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
+import android.os.IBinder;
+
+import java.util.List;
+
+public class MyService extends Service {
+    Context context = this;
+    CheckConnection checkConnection;
+>>>>>>> 382cae0f6a570d04bc521b4506bee86a441ff7ef
     public MyService() {
     }
 
@@ -17,6 +34,7 @@ public class MyService extends Service {
     }
 
     @Override
+<<<<<<< HEAD
     public int onStartCommand(Intent intent, int flags, int startId) {
         /*for (int i = 0; i <= 15; i++) {
             Toast.makeText(this, "Hola Servicio", Toast.LENGTH_LONG).show();
@@ -46,3 +64,80 @@ public class MyService extends Service {
     }
 
 }
+=======
+    public void onCreate() {
+        super.onCreate();
+        checkConnection = new CheckConnection();
+        checkConnection.execute();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+    /*for (int i=0; i<=15; i++){
+        Toast.makeText(this,"Hola servicio i:"+i,Toast.LENGTH_LONG).show();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }*/
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    class CheckConnection extends AsyncTask<Void,Integer,Void> { // Paramtros, Progreso, Resultados
+        @Override
+        protected Void doInBackground(Void... voids) {
+            // colorear.setBackgroundColor(Color.rgb(aleatorio(),aleatorio(),aleatorio()));
+            while(true) {
+                boolean isConnected = false;
+                try {
+                    ConnectivityManager cm =
+                            (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                    NetworkInfo wifiConn = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                    NetworkInfo mobileConn = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+                    if ((wifiConn != null && wifiConn.isConnected() ) || (mobileConn != null && mobileConn.isConnected())) {
+                        isConnected = true;
+                    }
+                    if (isConnected == false) {
+                        onProgressUpdate(0);
+                    } else {
+                        onProgressUpdate(1);
+                    }
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+        }
+
+        protected void onProgressUpdate(Integer values) {
+            super.onProgressUpdate(values);
+            System.out.println(values);
+            if (values.equals(0)) {
+                ActivityManager am = (ActivityManager) context
+                        .getSystemService(Context.ACTIVITY_SERVICE);
+                List<ActivityManager.RunningTaskInfo> alltasks = am
+                        .getRunningTasks(1);
+                for (ActivityManager.RunningTaskInfo aTask : alltasks) {
+                    if (aTask.topActivity.getClassName().equals("com.example.tallerandroid.MainActivity")) {
+                        System.out.println("We are in home");
+                    } else {
+                        Intent ir = new Intent(context, MainActivity.class);
+                        ir.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(ir);
+                    }
+                }
+            }
+        }
+    }
+}
+>>>>>>> 382cae0f6a570d04bc521b4506bee86a441ff7ef

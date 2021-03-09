@@ -6,16 +6,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:id="@+id/parent">
 
     <fragment
         android:id="@+id/fragment"
         android:name="com.example.tallerandroid.BlankFragment"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="160dp"
         tools:layout_editor_absoluteY="480dp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="26dp" />
 
     <EditText
         android:id="@+id/etUserName"
@@ -41,17 +46,45 @@
         android:id="@+id/swAuth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="I'm human" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="26dp" />
+        android:text="I'm human"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <Button
         android:id="@+id/btnIniciarSesion"
         android:layout_width="218dp"
         android:layout_height="wrap_content"
-        android:text="Log in" />
+        android:text="Sign in" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="26dp" />
+
+    <TextView
+        android:id="@+id/errorText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="#F44336"
+        android:textStyle="bold" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="26dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OR"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/signInGoogle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <com.google.android.gms.ads.AdView
         xmlns:ads="http://schemas.android.com/apk/res-auto"
