@@ -56,5 +56,13 @@
         tools:layout_editor_absoluteX="159dp"
         tools:layout_editor_absoluteY="16dp" />
 
+    <Button
+        android:id="@+id/btnDatabase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="getdb"
+        android:text="Get data From DB"
+        tools:layout_editor_absoluteX="159dp"
+        tools:layout_editor_absoluteY="16dp" />
 
 </LinearLayout>
