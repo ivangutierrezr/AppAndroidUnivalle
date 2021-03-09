@@ -46,7 +46,6 @@
         android:layout_width="match_parent"
         android:layout_height="150dp" />
 
-<<<<<<< HEAD
     <Button
         android:id="@+id/btnContar"
         android:layout_width="wrap_content"
@@ -64,6 +63,4 @@
         android:text="Servicio"
         android:onClick="iniciar_Servicio"/>
 
-=======
->>>>>>> 382cae0f6a570d04bc521b4506bee86a441ff7ef
 </LinearLayout>

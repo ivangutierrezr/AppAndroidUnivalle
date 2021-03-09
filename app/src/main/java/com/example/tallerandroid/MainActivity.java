@@ -1,14 +1,8 @@
 package com.example.tallerandroid;
 
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -17,15 +11,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-<<<<<<< HEAD
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-=======
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,6 +18,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -40,7 +30,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
->>>>>>> 382cae0f6a570d04bc521b4506bee86a441ff7ef
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,9 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SignInButton signInGoogle;
     EditText etUserName, etPasswd;
     Switch swAuth;
-<<<<<<< HEAD
     AdView mAdView;
-=======
     TextView errorText;
     Boolean accessAllowed = false;
     Object users;
@@ -67,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     MyService mService;
     boolean mBound = false;
->>>>>>> 382cae0f6a570d04bc521b4506bee86a441ff7ef
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         errorText = findViewById(R.id.errorText);
 
         btnIniciarSesion.setOnClickListener(this);
-<<<<<<< HEAD
 
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
@@ -95,7 +80,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-=======
         signInGoogle.setOnClickListener(this);
 
         requestQueue = Volley.newRequestQueue(this);
@@ -117,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void checkInternetConnection(){
         Intent ir = new Intent(this, MyService.class);
         startService(ir);
->>>>>>> 382cae0f6a570d04bc521b4506bee86a441ff7ef
     }
 
     @Override
