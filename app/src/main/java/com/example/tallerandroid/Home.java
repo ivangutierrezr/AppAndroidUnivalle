@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.example.tallerandroid.R;
 
+import java.io.IOException;
+
 public class Home extends AppCompatActivity {
 
     TextView etData;
@@ -51,6 +53,12 @@ public class Home extends AppCompatActivity {
         ir.addFlags(ir.FLAG_ACTIVITY_CLEAR_TOP | ir.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(ir);
     }
+
+    public void iniciar_Servicio(View h){
+        Intent ir = new Intent(this, MyService.class);
+        startService(ir);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

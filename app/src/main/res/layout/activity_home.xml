@@ -56,4 +56,11 @@
         tools:layout_editor_absoluteX="160dp"
         tools:layout_editor_absoluteY="480dp" />
 
+    <Button
+        android:id="@+id/btnServicio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Servicio"
+        android:onClick="iniciar_Servicio"/>
+
 </LinearLayout>
